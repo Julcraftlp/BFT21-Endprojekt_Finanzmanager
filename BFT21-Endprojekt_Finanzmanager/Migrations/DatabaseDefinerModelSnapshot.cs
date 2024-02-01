@@ -22,54 +22,54 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("betrag")
+                    b.Property<double>("Betrag")
                         .HasColumnType("REAL");
 
-                    b.Property<int>("einct")
+                    b.Property<int>("Einct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("eineuro")
+                    b.Property<int>("Eineuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("einhuderteuro")
+                    b.Property<int>("Einhuderteuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("fuenfct")
+                    b.Property<int>("Fuenfct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("fuenfeuro")
+                    b.Property<int>("Fuenfeuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("fuenfzigct")
+                    b.Property<int>("Fuenfzigct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("fuenfzigeuro")
+                    b.Property<int>("Fuenfzigeuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("kontoId")
+                    b.Property<int>("KontoId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zehnct")
+                    b.Property<int>("Zehnct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zehneuro")
+                    b.Property<int>("Zehneuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zwanzigct")
+                    b.Property<int>("Zwanzigct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zwanzigeuro")
+                    b.Property<int>("Zwanzigeuro")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zweict")
+                    b.Property<int>("Zweict")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("zweieuro")
+                    b.Property<int>("Zweieuro")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("kontoId");
+                    b.HasIndex("KontoId");
 
                     b.ToTable("kapitalUnterteilungsGruppen");
                 });
@@ -80,59 +80,51 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("anzeigeName")
+                    b.Property<string>("AnzeigeName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("bank")
+                    b.Property<string>("Bank")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("bankleitzahl")
+                    b.Property<int>("Bankleitzahl")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("inhaberId")
+                    b.Property<int>("InhaberId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("kontoTyp")
+                    b.Property<int>("KontoTyp")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("kontoname")
+                    b.Property<string>("Kontoname")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("kontonummer")
+                    b.Property<int>("Kontonummer")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("kontostand")
+                    b.Property<double>("Kontostand")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("laendercode")
+                    b.Property<string>("Laendercode")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("lagerort")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("pruefsumme")
+                    b.Property<int>("Pruefsumme")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("waerungsTyp")
+                    b.Property<string>("WaerungsTyp")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("walletAdress")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("webAdresse")
+                    b.Property<string>("WebAdresse")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("inhaberId");
+                    b.HasIndex("InhaberId");
 
                     b.ToTable("Konten");
                 });
@@ -143,19 +135,19 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("login")
+                    b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("nachname")
+                    b.Property<string>("Nachname")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("password")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("vorname")
+                    b.Property<string>("Vorname")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -166,24 +158,24 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.KapitalUnterteilungsGruppe", b =>
                 {
-                    b.HasOne("BFT21_Endprojekt_Finanzmanager.Database.Konto", "konto")
+                    b.HasOne("BFT21_Endprojekt_Finanzmanager.Database.Konto", "Konto")
                         .WithMany("KapitalUnterteilungsGruppen")
-                        .HasForeignKey("kontoId")
+                        .HasForeignKey("KontoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("konto");
+                    b.Navigation("Konto");
                 });
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Konto", b =>
                 {
-                    b.HasOne("BFT21_Endprojekt_Finanzmanager.Database.Person", "inhaber")
-                        .WithMany("konten")
-                        .HasForeignKey("inhaberId")
+                    b.HasOne("BFT21_Endprojekt_Finanzmanager.Database.Person", "Inhaber")
+                        .WithMany("Konten")
+                        .HasForeignKey("InhaberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("inhaber");
+                    b.Navigation("Inhaber");
                 });
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Konto", b =>
@@ -193,7 +185,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Person", b =>
                 {
-                    b.Navigation("konten");
+                    b.Navigation("Konten");
                 });
 #pragma warning restore 612, 618
         }

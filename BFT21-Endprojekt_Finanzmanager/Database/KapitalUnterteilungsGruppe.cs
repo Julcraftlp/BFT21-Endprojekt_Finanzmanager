@@ -9,22 +9,22 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
     internal class KapitalUnterteilungsGruppe
     {
         public int Id { get; set; }
-        public Konto konto { get; set; }
+        public Konto Konto { get; set; } = null!;
         //DigitalMoney
-        public double betrag {  get; set; }
+        public double Betrag { get; set; } = 0.0;
         //AnalogMoney
-        public int einct { get; set; }
-        public int zweict {  get; set; }
-        public int fuenfct { get; set; }
-        public int zehnct {  get; set; }
-        public int zwanzigct {  get; set; }
-        public int fuenfzigct { get; set; }
-        public int eineuro {  get; set; }
-        public int zweieuro {  get; set; }
-        public int fuenfeuro {  get; set; }
-        public int zehneuro {  get; set; }
-        public int zwanzigeuro { get; set; }
-        public int fuenfzigeuro { get; set; }
-        public int einhuderteuro {  get; set; }
+        public int Einct { get; set; } = 0;
+        public int Zweict {  get; set; } = 0;
+        public int Fuenfct { get; set; } = 0;
+        public int Zehnct {  get; set; } = 0;
+        public int Zwanzigct {  get; set; } = 0;
+        public int Fuenfzigct { get; set; } = 0;
+        public int Eineuro {  get; set; } = 0;
+        public int Zweieuro {  get; set; } = 0;
+        public int Fuenfeuro {  get; set; } = 0;
+        public int Zehneuro {  get; set; } = 0;
+        public int Zwanzigeuro { get; set; } = 0;
+        public int Fuenfzigeuro { get; set; } = 0;
+        public int Einhuderteuro {  get; set; } = 0;
     }
 }
