@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace BFT21_Endprojekt_Finanzmanager.Database
 {
-    internal class KapitalUnterteilungsGruppe
+    internal class GeldZaehlung
     {
         public int Id { get; set; }
         public Konto Konto { get; set; } = null!;
-        //DigitalMoney
-        public double Betrag { get; set; } = 0.0;
         //AnalogMoney
         public int Einct { get; set; } = 0;
         public int Zweict {  get; set; } = 0;

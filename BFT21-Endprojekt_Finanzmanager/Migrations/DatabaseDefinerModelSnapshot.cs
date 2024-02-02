@@ -16,14 +16,11 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.26");
 
-            modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.KapitalUnterteilungsGruppe", b =>
+            modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.GeldZaehlung", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
-
-                    b.Property<double>("Betrag")
-                        .HasColumnType("REAL");
 
                     b.Property<int>("Einct")
                         .HasColumnType("INTEGER");
@@ -71,7 +68,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
                     b.HasIndex("KontoId");
 
-                    b.ToTable("kapitalUnterteilungsGruppen");
+                    b.ToTable("GeldZerhlungen");
                 });
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Konto", b =>
@@ -156,10 +153,10 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                     b.ToTable("Personen");
                 });
 
-            modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.KapitalUnterteilungsGruppe", b =>
+            modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.GeldZaehlung", b =>
                 {
                     b.HasOne("BFT21_Endprojekt_Finanzmanager.Database.Konto", "Konto")
-                        .WithMany("KapitalUnterteilungsGruppen")
+                        .WithMany()
                         .HasForeignKey("KontoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -176,11 +173,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .IsRequired();
 
                     b.Navigation("Inhaber");
-                });
-
-            modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Konto", b =>
-                {
-                    b.Navigation("KapitalUnterteilungsGruppen");
                 });
 
             modelBuilder.Entity("BFT21_Endprojekt_Finanzmanager.Database.Person", b =>
