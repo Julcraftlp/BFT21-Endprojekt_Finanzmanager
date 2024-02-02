@@ -20,7 +20,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
         // 4 = CryptoWallets
         public string WaerungsTyp { get; set; } = null!;
         public double Kontostand { get; set; } = 0.0;
-        public List<KapitalUnterteilungsGruppe> KapitalUnterteilungsGruppen { get; set; }
         //1/2
         public string Bank { get; set; }
         //2
@@ -30,6 +29,5 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
         public int Kontonummer {  get; set; }
         //3/4
         public string WebAdresse {  get; set; }
-
     }
 }

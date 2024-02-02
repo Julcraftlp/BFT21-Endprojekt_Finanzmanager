@@ -55,13 +55,12 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "kapitalUnterteilungsGruppen",
+                name: "GeldZerhlungen",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     KontoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Betrag = table.Column<double>(type: "REAL", nullable: false),
                     Einct = table.Column<int>(type: "INTEGER", nullable: false),
                     Zweict = table.Column<int>(type: "INTEGER", nullable: false),
                     Fuenfct = table.Column<int>(type: "INTEGER", nullable: false),
@@ -78,9 +77,9 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_kapitalUnterteilungsGruppen", x => x.Id);
+                    table.PrimaryKey("PK_GeldZerhlungen", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_kapitalUnterteilungsGruppen_Konten_KontoId",
+                        name: "FK_GeldZerhlungen_Konten_KontoId",
                         column: x => x.KontoId,
                         principalTable: "Konten",
                         principalColumn: "Id",
@@ -88,8 +87,8 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_kapitalUnterteilungsGruppen_KontoId",
-                table: "kapitalUnterteilungsGruppen",
+                name: "IX_GeldZerhlungen_KontoId",
+                table: "GeldZerhlungen",
                 column: "KontoId");
 
             migrationBuilder.CreateIndex(
@@ -101,7 +100,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "kapitalUnterteilungsGruppen");
+                name: "GeldZerhlungen");
 
             migrationBuilder.DropTable(
                 name: "Konten");
