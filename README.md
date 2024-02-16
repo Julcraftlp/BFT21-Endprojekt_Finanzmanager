@@ -1,5 +1,7 @@
 # FiMa Alpha 1
 
+### Datenstruktur
+
 ```mermaid
 classDiagram 
 Person "1" *--> "*" Konto
@@ -42,5 +44,9 @@ RechnungsPosition : +double PreisNetto
 RechnungsPosition : +double PreisBrutto
 RechnungsPosition : +double Steuersatz
 ```
+
+### Programmablauf
+
+### Testbereich (Bitte nicht beachten Thx)
 
 ![Image](image.png)
