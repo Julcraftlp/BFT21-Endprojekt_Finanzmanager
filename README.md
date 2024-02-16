@@ -43,4 +43,4 @@ RechnungsPosition : +double PreisBrutto
 RechnungsPosition : +double Steuersatz
 ```
 
-![[image.png]]
+![image.png]
