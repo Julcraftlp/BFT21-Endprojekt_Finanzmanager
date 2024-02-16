@@ -1,3 +1,5 @@
+# FiMa Alpha 1
+
 ```mermaid
 classDiagram 
 Person "1" *--> "*" Konto
