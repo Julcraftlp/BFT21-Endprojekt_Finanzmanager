@@ -1,6 +1,6 @@
 # FiMa Alpha 1
 
-### Datenstruktur
+### Datenstruktur (Dies ist nicht das finale produkt)
 
 ```mermaid
 classDiagram 
