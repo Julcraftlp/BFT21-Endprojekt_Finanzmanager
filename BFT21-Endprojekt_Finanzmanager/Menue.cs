@@ -16,6 +16,7 @@ namespace BFT21_Endprojekt_Finanzmanager
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.SetWindowSize(102, 22);
             Console.SetBufferSize(102, 22);
+            Console.Clear();
         }
         public static void Draw()
         {
@@ -28,8 +29,28 @@ namespace BFT21_Endprojekt_Finanzmanager
             }
             Console.Write("  ##############################################-Alpha1-##############################################");
         }
-        internal static Person Login()
+        internal static Program LoginScreen()
         {
+            Console.Clear();
+            Console.WriteLine("R/L:");
+            string eing = Console.ReadLine().ToLower();
+            switch (eing)
+            {
+                case "r":
+                    Console.Clear();
+                    Console.WriteLine("Login:\nPassword:");
+                    Console.SetCursorPosition(6, 0);
+                    Console.ReadLine();
+                    Console.SetCursorPosition(9, 1);
+                    Functions.InvisType();
+                    break;
+                case "l":
+                    break;
+                case "exit":
+                    Environment.Exit(130);
+                    break;
+
+            }
             return null;
         }
     }

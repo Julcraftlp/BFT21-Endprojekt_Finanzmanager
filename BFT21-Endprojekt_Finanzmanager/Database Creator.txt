@@ -1,0 +1,5 @@
+﻿Paket-Manager-Konsole:
+
+Add-Migration [Name]
+
+Update-Database
