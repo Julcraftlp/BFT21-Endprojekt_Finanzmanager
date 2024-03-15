@@ -3,6 +3,7 @@ using System;
 using BFT21_Endprojekt_Finanzmanager.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFT21_Endprojekt_Finanzmanager.Migrations
 {
     [DbContext(typeof(DatabaseDefiner))]
-    partial class DatabaseDefinerModelSnapshot : ModelSnapshot
+    [Migration("20240315130657_MainSysMigri2")]
+    partial class MainSysMigri2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.28");

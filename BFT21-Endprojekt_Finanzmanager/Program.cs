@@ -1,4 +1,5 @@
 ﻿using BFT21_Endprojekt_Finanzmanager.Database;
+using BFT21_Endprojekt_Finanzmanager.Database.Datasets;
 
 namespace BFT21_Endprojekt_Finanzmanager
 {
@@ -6,17 +7,22 @@ namespace BFT21_Endprojekt_Finanzmanager
     {
         static void Main(string[] args)
         {
-            Menue.Init();
-            //Menue.Draw();
+            //Menue.Init();
             Console.WriteLine("Disclaimer:\nThis software is for demonstrational purposes only\nUse at your own risk, the software does not guarante Anything.\n" +
-                "\nAt any point you can navigate to the Main menu by typing exit,\nonly exeption is the Register/Login screen\nIf u type exit at any point in this screen the program will terminate Immediately\n" +
-                "Press Enter to confirm & Continue\n");
+                "\nAt any point you can return to the Menue by pressing Escape,\nonly exeption is the Register/Login screen\nIf you do so at any point in this screen the program will terminate Immediately\n" +
+                "Press Enter to confirm & Continue or Escape to exit\n");
             ConsoleKeyInfo keyinfo;
             do
             {
                 keyinfo = Console.ReadKey(true);
+                if (keyinfo.Key == ConsoleKey.Escape)
+                    Environment.Exit(130);
             } while (keyinfo.Key != ConsoleKey.Enter);
-            Program person = Menue.LoginScreen();
+            User user;
+            do
+            {
+                user = Menue.LoginScreen();
+            } while (user == null);
             Console.ReadLine();
         }
     }
