@@ -1,5 +1,6 @@
 ﻿using BFT21_Endprojekt_Finanzmanager.Database;
 using BFT21_Endprojekt_Finanzmanager.Database.Datasets;
+using Microsoft.EntityFrameworkCore;
 
 namespace BFT21_Endprojekt_Finanzmanager
 {
@@ -19,6 +20,7 @@ namespace BFT21_Endprojekt_Finanzmanager
                     Environment.Exit(130);
             } while (keyinfo.Key != ConsoleKey.Enter);
             User user;
+
             do
             {
                 user = Menue.LoginScreen();

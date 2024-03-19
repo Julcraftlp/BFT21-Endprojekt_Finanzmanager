@@ -10,7 +10,7 @@ namespace BFT21_Endprojekt_Finanzmanager
 {
     internal class Menue
     {
-        static DatabaseDefiner dbContext = new DatabaseDefiner();
+        //static DatabaseDefiner dbContext = new DatabaseDefiner();
         public static void Init()
         {
             Console.CursorVisible = false;
@@ -33,6 +33,7 @@ namespace BFT21_Endprojekt_Finanzmanager
         }*/
         internal static User LoginScreen()
         {
+            DatabaseDefiner dbContext = new DatabaseDefiner();
             Console.Clear();
             Console.Write("R/L:");
             ConsoleKeyInfo eing = Console.ReadKey();
@@ -106,7 +107,8 @@ namespace BFT21_Endprojekt_Finanzmanager
                         Console.Clear();
                         Console.Write("Username:");
                         string un = Functions.Type();
-                        User user = dbContext.Users.FirstOrDefault(u => u.Username == un);
+                        Console.WriteLine(un);//
+                        User user = dbContext.Users.SingleOrDefault(u => u.Username == un);
                         if (user == null)
                         {
                             Console.Clear();
@@ -119,7 +121,7 @@ namespace BFT21_Endprojekt_Finanzmanager
                                 if (keyinfo.Key == ConsoleKey.Escape)
                                     return null;
                             }
-                        }
+                        } else
                         if (user.LockedUntil > DateTime.Now)
                         {
                             Console.Clear();

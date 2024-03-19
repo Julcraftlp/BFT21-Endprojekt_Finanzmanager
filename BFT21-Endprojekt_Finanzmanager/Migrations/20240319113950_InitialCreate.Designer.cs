@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFT21_Endprojekt_Finanzmanager.Migrations
 {
     [DbContext(typeof(DatabaseDefiner))]
-    [Migration("20240315095908_MainSysMigri")]
-    partial class MainSysMigri
+    [Migration("20240319113950_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -213,6 +213,9 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("LockedUntil")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Password")

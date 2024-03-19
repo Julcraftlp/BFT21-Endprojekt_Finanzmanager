@@ -10,7 +10,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Database.Datasets
     {
         public int Id {  get; set; }
         public int Nummer {  get; set; }
-        public string Bank { get; set; }
+        public string Bank { get; set; } = null!;
 
     }
 }
