@@ -8,16 +8,16 @@ namespace BFT21_Endprojekt_Finanzmanager
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             
             #region Test-AI
                 DatabaseDefiner dbContext = new DatabaseDefiner();
                 
                 dbContext.BankLeitZahl.Add(new BLZ{Nummer=123,Bank="Test"});
-                dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+                BLZ bank_aktuell = dbContext.BankLeitZahl.FirstOrDefault(k => k.Id == 1);
 
-                BLZ bank_aktuell = dbContext.BankLeitZahl.FirstOrDefault(k => k.Id == 1); // Angenommen, die ID ist bekannt
                 if (bank_aktuell != null)
                 {
                     Console.WriteLine(bank_aktuell.Bank);

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFT21_Endprojekt_Finanzmanager.Migrations
 {
     [DbContext(typeof(DatabaseDefiner))]
-    [Migration("20240319113950_InitialCreate")]
+    [Migration("20240319144406_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
