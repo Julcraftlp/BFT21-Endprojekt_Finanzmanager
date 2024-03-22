@@ -57,7 +57,7 @@ namespace BFT21_Endprojekt_Finanzmanager
             int top;
             (left, top) = Console.GetCursorPosition();
             string Entert = "";
-            string CharList1 = "abcdefghijklmopqrstuvwxyzäöü";
+            string CharList1 = "abcdefghijklmnopqrstuvwxyzäöü";
             string CharList2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ";
             string CharList3 = "1234567890";
             string CharList4 = "!@#$%^&*-_+=?/:;,.<>|[]{}";
@@ -83,7 +83,7 @@ namespace BFT21_Endprojekt_Finanzmanager
                     return null;
                 }
                 Console.SetCursorPosition(left, top);
-                for (int i = 0; i < maxlength; i++)
+                for (int i = 0; i < maxlength+1; i++)
                 {
                     Console.Write(" ");
                 }

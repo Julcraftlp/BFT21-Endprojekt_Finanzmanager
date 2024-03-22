@@ -34,6 +34,8 @@ namespace BFT21_Endprojekt_Finanzmanager
         internal static User LoginScreen()
         {
             DatabaseDefiner dbContext = new DatabaseDefiner();
+            Console.Write(Directory.GetCurrentDirectory().ToString());
+            Functions.InvisType();
             Console.Clear();
             Console.Write("R/L:");
             ConsoleKeyInfo eing = Console.ReadKey();
@@ -71,7 +73,7 @@ namespace BFT21_Endprojekt_Finanzmanager
                             }
                         }
                         Console.CursorVisible = false;
-                        Console.Write("Password:");
+                        Console.Write("\nPassword:");
                         string pw1 = Functions.InvisType();
                         if (pw1 == null)
                             return null;
