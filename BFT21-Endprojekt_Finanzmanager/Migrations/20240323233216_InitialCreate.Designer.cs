@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BFT21_Endprojekt_Finanzmanager.Migrations
 {
     [DbContext(typeof(DatabaseDefiner))]
-    [Migration("20240319113950_InitialCreate")]
+    [Migration("20240323233216_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -227,6 +227,9 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });

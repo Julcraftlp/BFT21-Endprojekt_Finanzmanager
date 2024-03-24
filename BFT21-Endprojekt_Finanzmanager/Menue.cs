@@ -20,24 +20,10 @@ namespace BFT21_Endprojekt_Finanzmanager
             Console.SetBufferSize(102, 22);
             Console.Clear();
         }
-        /*public static void Draw()
+        internal static User LoginScreen(DatabaseDefiner dbContext)
         {
             Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine("  ###############################################-FiMa-###############################################");
-            for (int i = 0;i < 19; i++)
-            {
-            Console.WriteLine("  #                                                                                                  #");
-            }
-            Console.Write("  ##############################################-Alpha1-##############################################");
-        }*/
-        internal static User LoginScreen()
-        {
-            DatabaseDefiner dbContext = new DatabaseDefiner();
-            Console.Write(Directory.GetCurrentDirectory().ToString());
-            Functions.InvisType();
-            Console.Clear();
-            Console.Write("R/L:");
+            Console.Write("[R]/[L]");
             ConsoleKeyInfo eing = Console.ReadKey();
             switch (eing.Key)
             {
@@ -110,7 +96,7 @@ namespace BFT21_Endprojekt_Finanzmanager
                         Console.Write("Username:");
                         string un = Functions.Type();
                         Console.WriteLine(un);//
-                        User user = dbContext.Users.SingleOrDefault(u => u.Username == un);
+                        User user = dbContext.Users.FirstOrDefault(u => u.Username == un);
                         if (user == null)
                         {
                             Console.Clear();
@@ -140,10 +126,13 @@ namespace BFT21_Endprojekt_Finanzmanager
                             if (pw != user.Password)
                             {
                                 Console.Clear();
-                                Console.Write($"Wrong password this is try {i} of 3");
+                                Console.Write($"Wrong password {2-i} tries left");
+                            } else
+                            {
+                                return user;
                             }
                         }
-                        user.LockedUntil = DateTime.Now.AddMinutes(90);
+                        user.LockedUntil = DateTime.Now.AddMinutes(5);
                         dbContext.SaveChanges();
                         Console.Write($"\nAccaunt is now being locked until {user.LockedUntil}\nConfirm with Enter");
                         while (Console.ReadKey().Key == ConsoleKey.Enter) { }
@@ -155,6 +144,13 @@ namespace BFT21_Endprojekt_Finanzmanager
 
             }
             return null;
+        }
+        internal static void MainUI(DatabaseDefiner dbContext,User user)
+        {
+            Console.Clear();
+            Console.Write(" ╔══════════════════════════════╦═════════════Main-Menue════════════════════════════════════════════\n" +
+                " ║UserInfo:                     ║\n ║FirstName:{0,20}║\n ║LastName:{1,21}║\n ║Username:{2,21}║"
+                ,user.FirstName,user.LastName,user.Username);
         }
     }
 }

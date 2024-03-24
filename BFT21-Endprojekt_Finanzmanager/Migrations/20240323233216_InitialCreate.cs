@@ -215,6 +215,12 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 name: "IX_Konten_UserId",
                 table: "Konten",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

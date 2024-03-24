@@ -226,6 +226,9 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 

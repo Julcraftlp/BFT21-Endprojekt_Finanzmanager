@@ -20,13 +20,27 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
-            modelBuilder.Entity<Konto>().HasKey(k => k.Id);
-            modelBuilder.Entity<Laendercode>().HasKey(l => l.Id);
-            modelBuilder.Entity<BLZ>().HasKey(blz => blz.Id);
-            modelBuilder.Entity<Buchung>().HasKey(b => b.Id);
-            modelBuilder.Entity<BuchungsPosition>().HasKey(bp => bp.Id);
-            modelBuilder.Entity<PositionsTyp>().HasKey(pt => pt.Id);
+            //modelBuilder.Entity<User>()
+            //    .HasKey(u => u.Id);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Konten)
+                .WithOne(k => k.User)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Konto>()
+                .HasKey(k => k.Id);
+            modelBuilder.Entity<Laendercode>()
+                .HasKey(l => l.Id);
+            modelBuilder.Entity<BLZ>()
+                .HasKey(blz => blz.Id);
+            modelBuilder.Entity<Buchung>()
+                .HasKey(b => b.Id);
+            modelBuilder.Entity<BuchungsPosition>()
+                .HasKey(bp => bp.Id);
+            modelBuilder.Entity<PositionsTyp>()
+                .HasKey(pt => pt.Id);
             base.OnModelCreating(modelBuilder);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

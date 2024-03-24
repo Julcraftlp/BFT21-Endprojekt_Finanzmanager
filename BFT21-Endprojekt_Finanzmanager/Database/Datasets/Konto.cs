@@ -14,9 +14,9 @@ namespace BFT21_Endprojekt_Finanzmanager.Database.Datasets
         public double Betrag { get; set; } = 0.0;
         public bool KontoTyp { get; set; }
         public string TF1 { get; set; } = null!;
-        public Laendercode Laendercode { get; set; } = null!;
+        public Laendercode Laendercode { get; set; }
         public int Kontrollsumme { get; set; }
-        public BLZ BankLeitZahl { get; set; } = null!;
+        public BLZ BankLeitZahl { get; set; }
         public int KontoNummer { get; set; }
         public DateOnly Gültigkeit { get; set; }
         

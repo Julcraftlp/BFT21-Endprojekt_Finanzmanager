@@ -3,3 +3,106 @@
 Add-Migration [Name]
 
 Update-Database
+
+
+
+
+
+internal class User
+{
+    public int Id { get; set; }
+    public string FirstName { get; set; } = "";
+    public string LastName { get; set; } = "";
+    public string Username { get; set; } = null!;
+    public string Password { get; set; } = null!;
+    public DateTime LockedUntil { get; set; }
+    public List<Buchung> Buchungen { get; set; }
+    public ICollection<Konto> Konten { get; set; }
+}
+internal class Konto
+{
+    public int Id { get; set; }
+    public User User { get; set; } = null!;
+    public string Name { get; set; } = null!;
+    public double Betrag { get; set; } = 0.0;
+    public bool KontoTyp { get; set; }
+    public string TF1 { get; set; } = null!;
+    public Laendercode Laendercode { get; set; }
+    public int Kontrollsumme { get; set; }
+    public BLZ BankLeitZahl { get; set; }
+    public int KontoNummer { get; set; }
+    public DateOnly Gültigkeit { get; set; }
+}
+internal class DatabaseDefiner : DbContext
+{
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Konto> Konten { get; set; } = null!;
+    public DbSet<Laendercode> Laendercodes {  get; set; } = null!;
+    public DbSet<BLZ> BankLeitZahl {  get; set; } = null!;
+    public DbSet<Buchung> Buchungen { get; set; } = null!;
+    public DbSet<BuchungsPosition> BuchungsPositionen {  get; set; } = null!;
+    public DbSet<PositionsTyp> PositionsTypen { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasKey(u => u.Id);
+        modelBuilder.Entity<User>()
+            .HasIndex(u => u.Username)
+            .IsUnique();
+        modelBuilder.Entity<User>()
+            .HasMany(u => u.Konten)
+            .WithOne(k => k.User)
+            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<Konto>()
+            .HasKey(k => k.Id);
+        modelBuilder.Entity<Laendercode>()
+            .HasKey(l => l.Id);
+        modelBuilder.Entity<BLZ>()
+            .HasKey(blz => blz.Id);
+        modelBuilder.Entity<Buchung>()
+            .HasKey(b => b.Id);
+        modelBuilder.Entity<BuchungsPosition>()
+            .HasKey(bp => bp.Id);
+        modelBuilder.Entity<PositionsTyp>()
+            .HasKey(pt => pt.Id);
+        base.OnModelCreating(modelBuilder);
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlite($@"Data Source=C:\Users\julia\Documents\Datenbanken\EndprojektFinanzmanager\Database.db");
+        }
+        base.OnConfiguring(optionsBuilder);
+    }
+}
+When running:
+Konto newKonto = new Konto();
+newKonto.Name = "StandartBuchungskonto";
+newKonto.User = dbContext.Users.FirstOrDefault(u => u.Username == "StandardUser");
+newKonto.TF1 = "Konto für externe buchungen";
+dbContext.Konten.Add(newKonto);
+dbContext.SaveChanges();
+i get error:
+Unhandled exception. Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(StateManager stateManager, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.<>c.<SaveChanges>b__104_0(DbContext _, ValueTuple`2 t)
+   at Microsoft.EntityFrameworkCore.Storage.NonRetryingExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at BFT21_Endprojekt_Finanzmanager.Program.Main(String[] args) in C:\Users\julia\source\repos\BFT21-Endprojekt_Finanzmanager\BFT21-Endprojekt_Finanzmanager\Program.cs:line 41
