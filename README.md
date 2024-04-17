@@ -1,52 +1,51 @@
-# FiMa Alpha 1
+# FiMa Alpha 2
 
-### Datenstruktur (Dies ist nicht das finale produkt)
+### Datenstruktur (Aktuelle Nutzung)
 
 ```mermaid
 classDiagram 
-Person "1" *--> "*" Konto
-Rechnung "1" *--> "1.." RechnungsPosition
-Rechnung "1" ..> "0.." Konto
+User "1" *--> "*" Account
 
-Person : +int Id
-Person : +string Vorname
-Person : +string Nachname
-Person : +string Login
-Person : +string PasswordHashed
-Person : +List~Konto~ Konten
+User : +int Id
+User : +string FirstName
+User : +string LastName
+User : +string Username = null!
+User : +string Password = null!
+User : +DateTime LockedUntil
+User : +ICollection<Account>? Accounts
 
-Konto : +int Id
-Konto : +Person Inhaber
-Konto : +string KontoName
-Konto : +double KontoStand
-Konto : +string Bank
-Konto : +string Laendercode
-Konto : +int Pruefsumme
-Konto : +int Bankleitzahl
-Konto : +int Kontonummer
-
-Rechnung : +int Id
-Rechnung : +Konto Konto
-Rechnung : +DateTime RechDat
-Rechnung : +DateTime LeistDat
-Rechnung : +DateTime ZahlDat
-Rechnung : +double SummeBrutto
-Rechnung : +double Steuerbetrag
-Rechnung : +double SummeNetto
-Rechnung : +List~RechnungsPosition~ Positionen
-
-RechnungsPosition : +int Id
-RechnungsPosition : +Rechnung Rechnung
-RechnungsPosition : +int Menge
-RechnungsPosition : +string Name
-RechnungsPosition : +int Typ
-RechnungsPosition : +double PreisNetto
-RechnungsPosition : +double PreisBrutto
-RechnungsPosition : +double Steuersatz
+Account : +int Id
+Account : +User User = null!
+Account : +string Name = null!
+Account : +double Betrag = 0.0
+Account : +string TF1 = null!
 ```
 
-### Programmablauf
+### Datenstruktur (Aktueller aufbau in sicht auf zukünftige funktion)
 
-### Testbereich (Bitte nicht beachten Thx)
+```mermaid
+classDiagram 
+User "1" *--> "*" Account
+User "1" ..> "1"Laendercode
 
-![Image](image.png)
+User : +int Id
+User : +string FirstName
+User : +string LastName
+User : +string Username = null!
+User : +string Password = null!
+User : +DateTime LockedUntil
+User : +ICollection<Invoice>? Buchungen
+User : +ICollection<Account>? Accounts
+
+Account : +int Id
+Account : +User User = null!
+Account : +string Name = null!
+Account : +double Betrag = 0.0
+Account : +bool KontoTyp
+Account : +string TF1 = null!
+Account : +Laendercode? Laendercode
+Account : +int Kontrollsumme
+Account : +BLZ? BankLeitZahl
+Account : +int KontoNummer
+Account : +DateOnly? Gülitgkeit
+```
