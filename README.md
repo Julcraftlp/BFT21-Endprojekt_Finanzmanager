@@ -24,9 +24,12 @@ Account : +string TF1 = null!
 ### Datenstruktur (Aktueller aufbau in sicht auf zukünftige funktion)
 
 ```mermaid
-classDiagram 
-User "1" *--> "*" Account
-User "1" ..> "1"Laendercode
+classDiagram
+User "1" --> "*" Account
+Account "1" ..> "1" Laendercode
+Account "1" ..> "1" BLZ
+Invoice "1" ..> "1..2" Account
+Invoice "1" --> "1..*" InvoicePosition
 
 User : +int Id
 User : +string FirstName
@@ -48,4 +51,29 @@ Account : +int Kontrollsumme
 Account : +BLZ? BankLeitZahl
 Account : +int KontoNummer
 Account : +DateOnly? Gülitgkeit
+
+BLZ : +int Id
+BLZ : +int Nummer
+BLZ : +string Bank
+
+Invoice : +int Id
+Invoice : +short BuchungsTyp
+Invoice : +double NettoSum
+Invoice : +double BruttoSum
+Invoice : +Account EigKonto = null!
+Invoice : +Account? ExtKonto
+Invoice : +ICollection<InvoicePosition> Positionen
+
+InvoicePosition : +int Id
+InvoicePosition : +Invoice Buchung = null!
+InvoicePosition : +int Position = 0!
+InvoicePosition : +string Text
+InvoicePosition : +double BPPU
+InvoicePosition : +int Amt
+InvoicePosition : +double NettoPreis
+InvoicePosition : +double BruttoPreis
+
+Laendercode : +int Id
+Laendercode : +string Kürzel = null!
+Laendercode : +string Land = null!
 ```
