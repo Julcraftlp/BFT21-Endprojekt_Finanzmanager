@@ -11,37 +11,37 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
     internal class DatabaseDefiner : DbContext
     {
         public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Konto> Konten { get; set; } = null!;
+        public DbSet<Account> Konten { get; set; } = null!;
         public DbSet<Laendercode> Laendercodes {  get; set; } = null!;
         public DbSet<BLZ> BankLeitZahl {  get; set; } = null!;
-        public DbSet<Buchung> Buchungen { get; set; } = null!;
-        public DbSet<BuchungsPosition> BuchungsPositionen {  get; set; } = null!;
-        public DbSet<PositionsTyp> PositionsTypen { get; set; } = null!;
+        public DbSet<Invoice> Buchungen { get; set; } = null!;
+        public DbSet<InvoicePosition> BuchungsPositionen {  get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<User>()
-            //    .HasKey(u => u.Id);
             modelBuilder.Entity<User>()
-                .HasIndex(u => u.Username)
-                .IsUnique();
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Konten)
-                .WithOne(k => k.User)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<Konto>()
+                .HasKey(u => u.Id);
+            modelBuilder.Entity<Account>()
                 .HasKey(k => k.Id);
             modelBuilder.Entity<Laendercode>()
                 .HasKey(l => l.Id);
             modelBuilder.Entity<BLZ>()
                 .HasKey(blz => blz.Id);
-            modelBuilder.Entity<Buchung>()
+            modelBuilder.Entity<Invoice>()
                 .HasKey(b => b.Id);
-            modelBuilder.Entity<BuchungsPosition>()
+            modelBuilder.Entity<InvoicePosition>()
                 .HasKey(bp => bp.Id);
-            modelBuilder.Entity<PositionsTyp>()
-                .HasKey(pt => pt.Id);
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.User)
+                .WithMany(a => a.Accounts)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.Laendercode);
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.BankLeitZahl);
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

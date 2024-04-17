@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace BFT21_Endprojekt_Finanzmanager.Database.Datasets
 {
-    internal class BuchungsPosition
+    internal class InvoicePosition
     {
         public int Id { get; set; }
-        public Buchung Buchung { get; set; } = null!;
+        public Invoice Buchung { get; set; } = null!;
         public int Position { get; set; } = 0!;
-        public PositionsTyp PositionsTyp { get; set; } = null!;
         public string Text { get; set; } = null!;
         public double BPPU { get; set; }
         public int Amt {  get; set; }

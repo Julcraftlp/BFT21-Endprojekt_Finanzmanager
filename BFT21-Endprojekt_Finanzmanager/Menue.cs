@@ -18,6 +18,7 @@ namespace BFT21_Endprojekt_Finanzmanager
             Console.BackgroundColor = ConsoleColor.Gray;
             Console.SetWindowSize(102, 22);
             Console.SetBufferSize(102, 22);
+            Console.OutputEncoding = Encoding.UTF8;
             Console.Clear();
         }
         internal static User LoginScreen(DatabaseDefiner dbContext)
@@ -91,11 +92,10 @@ namespace BFT21_Endprojekt_Finanzmanager
                     }
                 case ConsoleKey.L:
                     {
-                        Username:
+                    Username:
                         Console.Clear();
                         Console.Write("Username:");
                         string un = Functions.Type();
-                        Console.WriteLine(un);//
                         User user = dbContext.Users.FirstOrDefault(u => u.Username == un);
                         if (user == null)
                         {
@@ -109,7 +109,8 @@ namespace BFT21_Endprojekt_Finanzmanager
                                 if (keyinfo.Key == ConsoleKey.Escape)
                                     return null;
                             }
-                        } else
+                        }
+                        else
                         if (user.LockedUntil > DateTime.Now)
                         {
                             Console.Clear();
@@ -126,8 +127,9 @@ namespace BFT21_Endprojekt_Finanzmanager
                             if (pw != user.Password)
                             {
                                 Console.Clear();
-                                Console.Write($"Wrong password {2-i} tries left");
-                            } else
+                                Console.Write($"Wrong password {2 - i} tries left\nUsername:{un}");
+                            }
+                            else
                             {
                                 return user;
                             }
@@ -145,12 +147,131 @@ namespace BFT21_Endprojekt_Finanzmanager
             }
             return null;
         }
-        internal static void MainUI(DatabaseDefiner dbContext,User user)
+        internal static void MainUI(DatabaseDefiner dbContext, User user)
         {
+            
             Console.Clear();
-            Console.Write(" ╔══════════════════════════════╦═════════════Main-Menue════════════════════════════════════════════\n" +
-                " ║UserInfo:                     ║\n ║FirstName:{0,20}║\n ║LastName:{1,21}║\n ║Username:{2,21}║"
-                ,user.FirstName,user.LastName,user.Username);
+            Console.Write(" ╔══════════════════════════════╦══╦══════════Main-Menue══════════════╦═════════════════════════════╗\n" +
+                          " ╠═══════════UserInfo═══════════╣  ╠═════════════Accounts═════════════╣                             ║\n" +
+                          " ║FirstName:{0,20}" +          "║  ╠════════Name════════╦════Value════╣                             ║\n" +
+                          " ║LastName :{1,20}" +          "║                                                                   ║\n" +
+                          " ║Username :{2,20}" +          "║                                                                   ║\n" +
+                          " ╠══════════════════════════════╣                                                                   ║\n" +
+                          " ╠═══Profile Settings═══════════╣                                                                   ║\n" +
+                          " ╠═══Manage Accounts════════════╣                                                                   ║\n" +
+                          " ╠═══Manage Transactions════════╣                                                                   ║\n" +
+                          " ╠═══Log Out════════════════════╣                                                                   ║\n" +
+                          " ╠═══Exit Programm══════════════╝                                                                   ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ║                                                                                                  ║\n" +
+                          " ╚══════════════════════════════════════════════════════════════════════════════════════════════════╝"
+                , user.FirstName, user.LastName, user.Username);
+            short verticalPos = 3;
+            Console.SetCursorPosition(35, verticalPos);
+            if (user.Accounts != null)
+            {
+                foreach (Account account in user.Accounts)
+                {
+                    if (verticalPos > 20)
+                        break;
+                    string formattedValue = account.Betrag.ToString("#,0.00", System.Globalization.CultureInfo.GetCultureInfo("de-DE"));
+                    Console.SetCursorPosition(35, verticalPos);
+                    Console.Write("║{0,-20}║{1,13}║", account.Name, formattedValue);
+                    verticalPos++;
+                }
+            }
+            Console.SetCursorPosition(35, verticalPos);
+            if (verticalPos < 21)
+            {
+                Console.Write("╚════════════════════╩═════════════╝");
+            } else
+            {
+                Console.Write("╩════════════════════╩═════════════╩");
+            }
+            //verticalPos = 6;
+            verticalPos = 1;
+            while (true)
+            {
+                Console.SetCursorPosition(0, 6);
+                if (verticalPos < 1)
+                    verticalPos = 1;
+                if (verticalPos > 5)
+                    verticalPos = 5;
+                if (verticalPos == 1)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                } else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                Console.Write(" ╠═══Profile Settings═══════════\n");
+                if (verticalPos == 2)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                Console.Write(" ╠═══Manage Accounts════════════\n");
+                if (verticalPos == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                Console.Write(" ╠═══Manage Transactions════════\n");
+                if (verticalPos == 4)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                Console.Write(" ╠═══Log Out════════════════════\n");
+                if (verticalPos == 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                Console.Write(" ╠═══Exit Programm══════════════\n");
+                switch (Console.ReadKey(true).Key)
+                {
+                    case ConsoleKey.UpArrow:
+                        verticalPos--;
+                        break;
+                    case ConsoleKey.DownArrow:
+                        verticalPos++;
+                        break;
+                    case ConsoleKey.Enter:
+                        //Missing Case Handling
+                        break;
+                }
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Database.Datasets
         public string Username { get; set; } = null!;
         public string Password { get; set; } = null!;
         public DateTime LockedUntil { get; set; }
-        public List<Buchung> Buchungen { get; set; }
-        public ICollection<Konto> Konten { get; set; }
+        public ICollection<Invoice>? Buchungen { get; set; }
+        public ICollection<Account>? Accounts { get; set; }
     }
 }
