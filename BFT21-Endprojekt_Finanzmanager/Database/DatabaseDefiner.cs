@@ -47,7 +47,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlite($@"Data Source=C:\Users\julia\Documents\Datenbanken\EndprojektFinanzmanager\Database.db");
+                optionsBuilder.UseSqlite($@"Data Source={Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\source\repos\BFT21-Endprojekt_Finanzmanager\BFT21-Endprojekt_Finanzmanager\Database\Database.db");
             }
             base.OnConfiguring(optionsBuilder);
         }

@@ -38,21 +38,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PositionsTypen",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Absetzbar = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Steuersatz = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PositionsTypen", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -80,11 +65,11 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                     Betrag = table.Column<double>(type: "REAL", nullable: false),
                     KontoTyp = table.Column<bool>(type: "INTEGER", nullable: false),
                     TF1 = table.Column<string>(type: "TEXT", nullable: false),
-                    LaendercodeId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LaendercodeId = table.Column<int>(type: "INTEGER", nullable: true),
                     Kontrollsumme = table.Column<int>(type: "INTEGER", nullable: false),
-                    BankLeitZahlId = table.Column<int>(type: "INTEGER", nullable: false),
+                    BankLeitZahlId = table.Column<int>(type: "INTEGER", nullable: true),
                     KontoNummer = table.Column<int>(type: "INTEGER", nullable: false),
-                    Gültigkeit = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Gültigkeit = table.Column<DateOnly>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,14 +78,12 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         name: "FK_Konten_BankLeitZahl_BankLeitZahlId",
                         column: x => x.BankLeitZahlId,
                         principalTable: "BankLeitZahl",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Konten_Laendercodes_LaendercodeId",
                         column: x => x.LaendercodeId,
                         principalTable: "Laendercodes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Konten_Users_UserId",
                         column: x => x.UserId,
@@ -119,7 +102,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                     NettoSum = table.Column<double>(type: "REAL", nullable: false),
                     BruttoSum = table.Column<double>(type: "REAL", nullable: false),
                     EigKontoId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ExtKontoId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ExtKontoId = table.Column<int>(type: "INTEGER", nullable: true),
                     UserId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -135,8 +118,7 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         name: "FK_Buchungen_Konten_ExtKontoId",
                         column: x => x.ExtKontoId,
                         principalTable: "Konten",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Buchungen_Users_UserId",
                         column: x => x.UserId,
@@ -152,7 +134,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     BuchungId = table.Column<int>(type: "INTEGER", nullable: false),
                     Position = table.Column<int>(type: "INTEGER", nullable: false),
-                    PositionsTypId = table.Column<int>(type: "INTEGER", nullable: false),
                     Text = table.Column<string>(type: "TEXT", nullable: false),
                     BPPU = table.Column<double>(type: "REAL", nullable: false),
                     Amt = table.Column<int>(type: "INTEGER", nullable: false),
@@ -166,12 +147,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                         name: "FK_BuchungsPositionen_Buchungen_BuchungId",
                         column: x => x.BuchungId,
                         principalTable: "Buchungen",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BuchungsPositionen_PositionsTypen_PositionsTypId",
-                        column: x => x.PositionsTypId,
-                        principalTable: "PositionsTypen",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -195,11 +170,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
                 name: "IX_BuchungsPositionen_BuchungId",
                 table: "BuchungsPositionen",
                 column: "BuchungId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BuchungsPositionen_PositionsTypId",
-                table: "BuchungsPositionen",
-                column: "PositionsTypId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Konten_BankLeitZahlId",
@@ -230,9 +200,6 @@ namespace BFT21_Endprojekt_Finanzmanager.Migrations
 
             migrationBuilder.DropTable(
                 name: "Buchungen");
-
-            migrationBuilder.DropTable(
-                name: "PositionsTypen");
 
             migrationBuilder.DropTable(
                 name: "Konten");
