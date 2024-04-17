@@ -417,16 +417,16 @@ namespace BFT21_Endprojekt_Finanzmanager
                                 Password:
                                 Console.SetCursorPosition(32, 1);
                                 Console.Write("╬═══════════════════════════════════════════════════════════════════╣");
-                                Console.SetCursorPosition(33, 2);
+                                Console.SetCursorPosition(32, 2);
                                 Console.Write("║Old Password:");
-                                Console.SetCursorPosition(33, 3);
+                                Console.SetCursorPosition(32, 3);
                                 Console.Write("║New Password:");
-                                Console.SetCursorPosition(33, 4);
+                                Console.SetCursorPosition(32, 4);
                                 Console.Write("║Repeat      :");
                                 Console.SetCursorPosition(32, 5);
                                 Console.Write("╬═══════════════════════════════════════════════════════════════════╣");
 
-                                Console.SetCursorPosition(47, 2);
+                                Console.SetCursorPosition(46, 2);
                                 string? pw1 = Functions.InvisType(52);
                                 if (pw1 == null)
                                     goto Start;
@@ -435,11 +435,11 @@ namespace BFT21_Endprojekt_Finanzmanager
                                     //Error msg here
                                     goto Password;
                                 }
-                                Console.SetCursorPosition(47, 3);
+                                Console.SetCursorPosition(46, 3);
                                 string? pw2 = Functions.InvisType(52);
                                 if (pw2 == null)
                                     goto Start;
-                                Console.SetCursorPosition(47, 4);
+                                Console.SetCursorPosition(46, 4);
                                 string? pw3 = Functions.InvisType(52);
                                 if (pw3 == null)
                                     goto Start;
