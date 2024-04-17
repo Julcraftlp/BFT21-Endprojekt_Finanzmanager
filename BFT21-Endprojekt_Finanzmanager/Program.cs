@@ -9,9 +9,10 @@ namespace BFT21_Endprojekt_Finanzmanager
         public static DatabaseDefiner dbContext = new DatabaseDefiner();
         static void Main(string[] args)
         {
-        Start:
             Menue.Init();
-            Console.WriteLine("Disclaimer:\nThis software is for demonstrational purposes only\nUse at your own risk, the software does not guarante Anything.\n" +
+        Start:
+            Console.Clear();
+            Console.Write("Disclaimer:\nThis software is for demonstrational purposes only\nUse at your own risk, the software does not guarante Anything.\n" +
                 "\nAt any point you can return to the Menue by pressing Escape,\nonly exeption is the Register/Login screen\nIf you do so at any point in this screen the program will terminate Immediately\n" +
                 "Press Enter to confirm & Continue or Escape to exit\n");
             ConsoleKeyInfo keyinfo;
@@ -33,16 +34,17 @@ namespace BFT21_Endprojekt_Finanzmanager
             {
                 Console.Write("!!!!!!!!!!!!MeNowIsDead!!!!!!!!!!!!");
             }
-            else if (user.Accounts.Count()==0)
+            else if (user.Accounts==null||user.Accounts.Count==0)
             {
                 dbContext.Konten.Add(new Account { Name = "Konto", TF1 = "Konto für externe buchungen", User = user });
                 dbContext.SaveChanges();
             }
             user = null;
-                user = Menue.LoginScreen(dbContext);
+                user = Menue.LoginScreen();
             if (user == null)
                 goto Start;
-            Menue.MainUI(dbContext, user);
+            Menue.MainUI(user);
+            goto Start;
         }
     }
 }
